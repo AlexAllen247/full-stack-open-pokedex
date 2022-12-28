@@ -35,5 +35,21 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: fly deploy
-        if: ${{ github.event_name == 'push' }}
+        if: github.event_name == 'push' && contains(join(github.event.commits.*.message, ', '), '#skip') == false
         run: flyctl deploy --remote-only
+      
+  tag_release:
+    if: github.event_name == 'push' && contains(join(github.event.commits.*.message, ', '), '#skip') == false
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@v1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: patch
