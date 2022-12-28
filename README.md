@@ -14,4 +14,4 @@ Start by running `npm install` inside the project folder
 `npm run build` to make a production build
 `npm run start-prod` to run your production build
 
-Find my App on Fly.io [https://little-fire-716.fly.dev]here
+Find my App on Fly.io [here](https://little-fire-716.fly.dev)
