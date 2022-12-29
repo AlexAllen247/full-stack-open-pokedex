@@ -30,7 +30,7 @@ jobs:
         with: 
           severity: error
           details: build/lint/test failedure
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: build
         run: npm run build
       - name: test
