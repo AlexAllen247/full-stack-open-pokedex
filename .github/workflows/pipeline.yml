@@ -42,9 +42,7 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: fly deploy
-        if: |
-          github.event_name == 'push' &&
-          contains(join(toJson(github.event.commits.*.message), ' '), '#skip') != true
+        if: github.event_name == 'push' && contains(join(github.event.commits.*.message, ', '), '#skip') == false
         run: flyctl deploy --remote-only
       - name: deploy success
         uses: rjstone/discord-webhook-notify@v1
@@ -62,9 +60,7 @@ jobs:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       
   tag_release:
-    if: |
-          github.event_name == 'push' &&
-          contains(join(toJson(github.event.commits.*.message), ' '), '#skip') != true
+    if: github.event_name == 'push' && contains(join(github.event.commits.*.message, ', '), '#skip') == false
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
