@@ -4,6 +4,8 @@ This repository is used for the CI/CD module of the Full stack open course
 
 Fork the repository to complete course exercises
 
+The solutions to exercise 11.20-21 can be found at this link [here](https://github.com/AlexAllen247/Enhanced-Phonebook)
+
 ## Commands
 
 Start by running `npm install` inside the project folder
